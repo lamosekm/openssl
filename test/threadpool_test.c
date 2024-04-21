@@ -131,6 +131,8 @@ static int test_thread_internal(void)
     /* fail when not allowed to use threads */
 
     if (!TEST_uint64_t_eq(OSSL_get_max_threads(NULL), 0))
+        /* Check if OSSL_LIB_CTX_new() succeeded.  Pushed on GitHub */
+        OSSL_LIB_CTX_free(cust_ctx);
         return 0;
     t[0] = ossl_crypto_thread_start(NULL, test_thread_native_fn, &local[0]);
     if (!TEST_ptr_null(t[0]))
